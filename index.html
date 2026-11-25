@@ -228,7 +228,7 @@ function validateStep(i) {
     if (q.type === 'uid') {
       const v = (a || '').trim();
       if (!v) msg = 'This question is required.';
-      else if (!UID_RE.test(v)) msg = 'This UID doesn\'t look right. Please open the survey from the in-game button.';
+      else if (!UID_RE.test(v)) msg = 'This UID doesn\'t look right. Please copy your Account ID from your in-game Profile.';
     } else if (q.type === 'grid') {
       const done = a ? Object.keys(a).length : 0;
       q.rows.forEach((_, ri) => { if (!a || !a[ri]) document.querySelector(`#q-${q.id} .grid-row[data-row="${ri}"]`).classList.add('missing'); });

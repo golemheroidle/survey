@@ -114,8 +114,8 @@ const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfy7gClBM8XycXqdIn4di
 
 const STEPS = [
   { title: 'Your Account', desc: 'Let us know where to send your reward.', qs: [
-    { id: 'uid', entry: 1861924057, type: 'uid', req: true, title: 'Your UID',
-      desc: "Your UID is filled in automatically when you open this survey from the in-game button. Please don't change it, or we won't be able to send your reward." }
+    { id: 'uid', entry: 1861924057, type: 'uid', req: true, title: 'Your Account ID',
+      desc: "Open your Profile in the game, copy your Account ID and paste it here. We'll send your reward to this account." }
   ]},
   { title: 'About You', desc: 'A few quick questions so we can get to know our players.', qs: [
     { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Idle Golem?',
@@ -155,7 +155,7 @@ const UID_RE = /^(\d{10,16}|[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[0-9a-f]{4}-[0-
 function renderQ(q) {
   let body = '';
   if (q.type === 'uid' || q.type === 'text') {
-    body = `<input type="text" data-q="${q.id}" autocomplete="off" placeholder="${q.type==='uid'?'e.g. abcc0710-e32b-11f1-…':'Your answer'}">`;
+    body = `<input type="text" data-q="${q.id}" autocomplete="off" placeholder="${q.type==='uid'?'Paste your Account ID':'Your answer'}">`;
   } else if (q.type === 'paragraph') {
     body = `<textarea data-q="${q.id}" placeholder="Your answer"></textarea>`;
   } else if (q.type === 'radio' || q.type === 'checkbox') {
@@ -228,7 +228,7 @@ function validateStep(i) {
     if (q.type === 'uid') {
       const v = (a || '').trim();
       if (!v) msg = 'This question is required.';
-      else if (!UID_RE.test(v)) msg = 'This UID doesn\'t look right. Please copy your Account ID from your in-game Profile.';
+      else if (!UID_RE.test(v)) msg = 'This Account ID doesn\'t look right. Please copy your Account ID from your in-game Profile.';
     } else if (q.type === 'grid') {
       const done = a ? Object.keys(a).length : 0;
       q.rows.forEach((_, ri) => { if (!a || !a[ri]) document.querySelector(`#q-${q.id} .grid-row[data-row="${ri}"]`).classList.add('missing'); });

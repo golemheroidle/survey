@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Idle Golem – Player Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff4de; --card:#ffffff; --ink:#4a2a12; --muted:#8a6a50;
+  --brand:#e86e28; --brand-dark:#c9561a; --soft:#ffe6cc; --line:#f1dcc0; --err:#d93a2b;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-size:16px;line-height:1.5;
+  background-image:radial-gradient(circle at 10% 10%,#ffe3bd 0 120px,transparent 121px),radial-gradient(circle at 95% 60%,#ffe3bd 0 90px,transparent 91px);background-attachment:fixed}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 48px}
+.banner{width:100%;display:block;border-radius:18px;box-shadow:0 6px 20px rgba(120,60,10,.15)}
+.card{background:var(--card);border-radius:18px;padding:22px 20px;margin-top:16px;box-shadow:0 3px 12px rgba(120,60,10,.08)}
+.intro h1{margin:0 0 6px;font-size:26px;font-weight:900}
+.intro p{margin:0 0 10px;color:var(--muted)}
+.intro ul{margin:0;padding-left:20px;color:var(--muted)}
+.progress{display:flex;align-items:center;gap:12px;margin-top:16px}
+.bar{flex:1;height:10px;background:#fff;border-radius:99px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.bar i{display:block;height:100%;width:25%;background:linear-gradient(90deg,#f39a4a,var(--brand));border-radius:99px;transition:width .3s}
+.step-label{font-weight:800;font-size:14px;color:var(--brand-dark);white-space:nowrap}
+.sec-title{margin:0;font-size:22px;font-weight:900}
+.sec-desc{margin:4px 0 0;color:var(--muted)}
+.q{margin-top:16px}
+.q-title{font-weight:800;font-size:17px;margin:0}
+.q-title .req{color:var(--brand)}
+.q-desc{color:var(--muted);font-size:14px;margin:2px 0 0}
+.q-body{margin-top:12px}
+.err-msg{color:var(--err);font-size:14px;font-weight:700;margin-top:8px;display:none}
+.q.invalid .err-msg{display:block}
+.q.invalid{box-shadow:0 0 0 2px var(--err)}
+input[type=text],textarea{width:100%;font:inherit;color:inherit;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:#fffdf9;outline:none;transition:border-color .15s}
+input[type=text]:focus,textarea:focus{border-color:var(--brand)}
+textarea{min-height:110px;resize:vertical}
+.opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:2px solid var(--line);border-radius:12px;cursor:pointer;background:#fffdf9;transition:all .12s;user-select:none}
+.opt:hover{border-color:#f5b98a}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .mark{flex:none;width:20px;height:20px;border:2px solid #d9b894;border-radius:50%;display:grid;place-items:center;background:#fff}
+.opt.cb .mark{border-radius:6px}
+.opt.on{border-color:var(--brand);background:var(--soft)}
+.opt.on .mark{border-color:var(--brand);background:var(--brand)}
+.opt.on .mark::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.opt.cb.on .mark::after{width:10px;height:6px;border-radius:0;background:none;border:solid #fff;border-width:0 0 3px 3px;transform:rotate(-45deg) translate(1px,-1px)}
+.other-input{margin-top:8px;display:none}
+.other-input.show{display:block}
+.scale{display:flex;gap:6px;flex-wrap:wrap}
+.scale button{flex:1 1 0;min-width:40px;height:46px;font:inherit;font-weight:800;color:var(--ink);border:2px solid var(--line);border-radius:12px;background:#fffdf9;cursor:pointer}
+.scale button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.scale-labels{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:6px}
+.grid-row{padding:10px 0;border-top:1px dashed var(--line)}
+.grid-row:first-child{border-top:0;padding-top:0}
+.grid-row .rt{font-weight:700;margin-bottom:8px}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg button{font:inherit;font-weight:700;font-size:14px;padding:9px 4px;border:2px solid var(--line);border-radius:10px;background:#fffdf9;color:var(--ink);cursor:pointer}
+.seg button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.grid-row.missing .rt{color:var(--err)}
+.nav{display:flex;gap:10px;margin-top:20px}
+.btn{flex:1;font:inherit;font-weight:900;font-size:17px;padding:14px;border-radius:14px;border:0;cursor:pointer;transition:transform .08s,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 4px 0 var(--brand-dark)}
+.btn-primary:hover{background:#f07a34}
+.btn-ghost{background:#fff;color:var(--brand-dark);box-shadow:inset 0 0 0 2px var(--line)}
+.btn[disabled]{opacity:.6;cursor:default}
+.hidden{display:none}
+.done{text-align:center;padding:36px 22px}
+.done .big{font-size:56px;line-height:1}
+.done h2{margin:12px 0 8px;font-size:26px;font-weight:900}
+.done p{color:var(--muted);margin:0}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="banner" src="banner.jpg" alt="Idle Golem Player Survey">
+
+  <div id="intro" class="card intro">
+    <h1>Idle Golem – Player Survey</h1>
+    <p>Thanks for playing Idle Golem! We'd love to hear about your adventure so far.</p>
+    <ul>
+      <li>Takes about 3 minutes</li>
+      <li>Complete the survey to receive a thank-you reward in your in-game mailbox</li>
+      <li>One reward per account. Delivery may take a little time.</li>
+    </ul>
+  </div>
+
+  <div id="progress" class="progress"><div class="bar"><i id="barFill"></i></div><span class="step-label" id="stepLabel">Step 1 of 4</span></div>
+
+  <form id="survey" class="card" novalidate>
+    <div id="steps"></div>
+    <div class="nav">
+      <button type="button" class="btn btn-ghost hidden" id="backBtn">Back</button>
+      <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+    </div>
+  </form>
+
+  <div id="done" class="card done hidden">
+    <div class="big">🎉</div>
+    <h2>Thank you!</h2>
+    <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
+  </div>
+
+  <div class="foot">© Idle Golem</div>
+</div>
+
+<script>
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfy7gClBM8XycXqdIn4diAMMvOehw6H3KSeEIE5zanWBwz2Fw/formResponse';
+
+const STEPS = [
+  { title: 'Your Account', desc: 'Let us know where to send your reward.', qs: [
+    { id: 'uid', entry: 1861924057, type: 'uid', req: true, title: 'Your UID',
+      desc: "Your UID is filled in automatically when you open this survey from the in-game button. Please don't change it, or we won't be able to send your reward." }
+  ]},
+  { title: 'About You', desc: 'A few quick questions so we can get to know our players.', qs: [
+    { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Idle Golem?',
+      opts: ['Browsing Google Play / App Store','Ad on Facebook or Instagram','Ad on YouTube','Ad on TikTok','A friend or family member'], other: true },
+    { id: 'freq', entry: 1106045688, type: 'radio', req: true, title: 'How often do you play mobile games?',
+      opts: ['Every day','A few times a week','Once a week or less'] },
+    { id: 'games', entry: 1464727492, type: 'text', title: 'What other mobile games have you played recently?', desc: 'Optional' }
+  ]},
+  { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', qs: [
+    { id: 'enjoy', entry: 319544534, type: 'scale', req: true, title: 'Overall, how much are you enjoying Idle Golem?',
+      low: 1, high: 5, lowLabel: 'Not at all', highLabel: 'Love it!' },
+    { id: 'like', entry: 542537591, type: 'checkbox', req: true, title: 'Which parts of the game do you enjoy the most?', desc: 'Choose all that apply.',
+      opts: ['Growing my golem and changing class','Skills','Pets','Runes','Costumes','Dungeons','Arena (PvP)','Village (Farm, Mine, Shrine, Research)','Events'], other: true },
+    { id: 'pain', entry: 1940321871, type: 'checkbox', req: true, title: 'Has anything felt confusing or frustrating?', desc: 'Choose all that apply.',
+      opts: ['The tutorial was unclear',"I wasn't sure what to do next",'Progress feels too slow','Some stages are too hard','Too many menus or pop-ups','Bugs or crashes','Nothing so far'], other: true },
+    { id: 'rate', type: 'grid', req: true, title: 'How would you rate each of these?',
+      cols: ['Poor','Okay','Good','Great'],
+      rows: [['Art and characters',1819999126],['Music and sound',960467185],['Game pace',1953964325],['Difficulty',514695214],['Rewards from events and quests',706709696]] }
+  ]},
+  { title: 'Looking Ahead', desc: 'Almost done! Help us shape what comes next.', qs: [
+    { id: 'nps', entry: 1728677794, type: 'scale', req: true, title: 'How likely are you to recommend Idle Golem to a friend?',
+      low: 0, high: 10, lowLabel: 'Not likely', highLabel: 'Very likely' },
+    { id: 'more', entry: 349434999, type: 'checkbox', req: true, title: 'What would you like to see more of?', desc: 'Choose all that apply.',
+      opts: ['New costumes','More events','New pets and skills','Co-op or guild content','More PvP','Story content'], other: true },
+    { id: 'else', entry: 1644106396, type: 'paragraph', title: 'Anything else you would like to tell us?', desc: 'Optional' }
+  ]}
+];
+
+const answers = {};
+let step = 0;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// UUID v1 或 13 位數 UID
+const UID_RE = /^(\d{10,16}|[0-9a-f]{8}-[0-9a-f]{4}-1[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
+
+function renderQ(q) {
+  let body = '';
+  if (q.type === 'uid' || q.type === 'text') {
+    body = `<input type="text" data-q="${q.id}" autocomplete="off" placeholder="${q.type==='uid'?'e.g. abcc0710-e32b-11f1-…':'Your answer'}">`;
+  } else if (q.type === 'paragraph') {
+    body = `<textarea data-q="${q.id}" placeholder="Your answer"></textarea>`;
+  } else if (q.type === 'radio' || q.type === 'checkbox') {
+    const cls = q.type === 'checkbox' ? 'opt cb' : 'opt';
+    const items = q.opts.map(o => `<label class="${cls}" data-q="${q.id}" data-v="${esc(o)}"><span class="mark"></span><span>${esc(o)}</span></label>`);
+    if (q.other) items.push(`<label class="${cls}" data-q="${q.id}" data-v="__other__"><span class="mark"></span><span>Other</span></label>`);
+    body = `<div class="opts">${items.join('')}</div>` + (q.other ? `<input type="text" class="other-input" data-other="${q.id}" placeholder="Please specify">` : '');
+  } else if (q.type === 'scale') {
+    const btns = []; for (let i = q.low; i <= q.high; i++) btns.push(`<button type="button" data-q="${q.id}" data-v="${i}">${i}</button>`);
+    body = `<div class="scale">${btns.join('')}</div><div class="scale-labels"><span>${esc(q.lowLabel)}</span><span>${esc(q.highLabel)}</span></div>`;
+  } else if (q.type === 'grid') {
+    body = q.rows.map(([rt], ri) => `<div class="grid-row" data-row="${ri}"><div class="rt">${esc(rt)}</div><div class="seg">` +
+      q.cols.map(c => `<button type="button" data-g="${q.id}" data-r="${ri}" data-v="${esc(c)}">${esc(c)}</button>`).join('') + `</div></div>`).join('');
+  }
+  return `<div class="q" id="q-${q.id}"><p class="q-title">${esc(q.title)}${q.req ? ' <span class="req">*</span>' : ''}</p>` +
+    (q.desc ? `<p class="q-desc">${esc(q.desc)}</p>` : '') + `<div class="q-body">${body}</div><div class="err-msg"></div></div>`;
+}
+
+function render() {
+  $('#steps').innerHTML = STEPS.map((s, i) => `<section data-step="${i}" class="${i ? 'hidden' : ''}">
+    <h2 class="sec-title">${esc(s.title)}</h2><p class="sec-desc">${esc(s.desc)}</p>${s.qs.map(renderQ).join('')}</section>`).join('');
+
+  document.querySelectorAll('label.opt').forEach(el => el.addEventListener('click', e => {
+    e.preventDefault();
+    const q = findQ(el.dataset.q), v = el.dataset.v;
+    if (q.type === 'radio') {
+      answers[q.id] = v;
+      document.querySelectorAll(`label.opt[data-q="${q.id}"]`).forEach(x => x.classList.toggle('on', x === el));
+    } else {
+      const set = new Set(answers[q.id] || []);
+      set.has(v) ? set.delete(v) : set.add(v);
+      answers[q.id] = [...set];
+      el.classList.toggle('on', set.has(v));
+    }
+    const sel = q.type === 'radio' ? answers[q.id] === '__other__' : (answers[q.id] || []).includes('__other__');
+    const oi = document.querySelector(`[data-other="${q.id}"]`);
+    if (oi) { oi.classList.toggle('show', sel); if (sel) oi.focus(); }
+    clearErr(q.id);
+  }));
+  document.querySelectorAll('.scale button').forEach(b => b.addEventListener('click', () => {
+    answers[b.dataset.q] = b.dataset.v;
+    document.querySelectorAll(`.scale button[data-q="${b.dataset.q}"]`).forEach(x => x.classList.toggle('on', x === b));
+    clearErr(b.dataset.q);
+  }));
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    const g = b.dataset.g, r = b.dataset.r;
+    answers[g] = answers[g] || {}; answers[g][r] = b.dataset.v;
+    document.querySelectorAll(`.seg button[data-g="${g}"][data-r="${r}"]`).forEach(x => x.classList.toggle('on', x === b));
+    b.closest('.grid-row').classList.remove('missing');
+    if (Object.keys(answers[g]).length === findQ(g).rows.length) clearErr(g);
+  }));
+  document.querySelectorAll('input[data-q],textarea[data-q]').forEach(el => el.addEventListener('input', () => { answers[el.dataset.q] = el.value; clearErr(el.dataset.q); }));
+  document.querySelectorAll('[data-other]').forEach(el => el.addEventListener('input', () => clearErr(el.dataset.other)));
+
+  // 從遊戲帶入 UID：?uid= 或 ?uuid=
+  const p = new URLSearchParams(location.search);
+  const pre = (p.get('uid') || p.get('uuid') || '').trim();
+  if (pre) { const el = document.querySelector('input[data-q="uid"]'); el.value = pre; answers.uid = pre; }
+}
+
+const findQ = id => STEPS.flatMap(s => s.qs).find(q => q.id === id);
+function setErr(id, msg) { const el = $('#q-' + id); el.classList.add('invalid'); el.querySelector('.err-msg').textContent = msg; }
+function clearErr(id) { const el = $('#q-' + id); if (el) el.classList.remove('invalid'); }
+
+function validateStep(i) {
+  let first = null;
+  for (const q of STEPS[i].qs) {
+    const a = answers[q.id];
+    let msg = '';
+    if (q.type === 'uid') {
+      const v = (a || '').trim();
+      if (!v) msg = 'This question is required.';
+      else if (!UID_RE.test(v)) msg = 'This UID doesn\'t look right. Please open the survey from the in-game button.';
+    } else if (q.type === 'grid') {
+      const done = a ? Object.keys(a).length : 0;
+      q.rows.forEach((_, ri) => { if (!a || !a[ri]) document.querySelector(`#q-${q.id} .grid-row[data-row="${ri}"]`).classList.add('missing'); });
+      if (q.req && done < q.rows.length) msg = 'Please rate every row.';
+    } else if (q.req) {
+      const empty = Array.isArray(a) ? a.length === 0 : !(a && String(a).trim());
+      if (empty) msg = 'This question is required.';
+    }
+    if (!msg && q.other) {
+      const sel = Array.isArray(a) ? a.includes('__other__') : a === '__other__';
+      const ov = document.querySelector(`[data-other="${q.id}"]`).value.trim();
+      if (sel && !ov) msg = 'Please fill in your "Other" answer.';
+    }
+    if (msg) { setErr(q.id, msg); first = first || q.id; }
+  }
+  if (first) $('#q-' + first).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return !first;
+}
+
+function show(i) {
+  step = i;
+  document.querySelectorAll('section[data-step]').forEach(s => s.classList.toggle('hidden', +s.dataset.step !== i));
+  $('#backBtn').classList.toggle('hidden', i === 0);
+  $('#nextBtn').textContent = i === STEPS.length - 1 ? 'Submit' : 'Next';
+  $('#barFill').style.width = ((i + 1) / STEPS.length * 100) + '%';
+  $('#stepLabel').textContent = `Step ${i + 1} of ${STEPS.length}`;
+  $('#intro').classList.toggle('hidden', i !== 0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildBody() {
+  const b = new URLSearchParams();
+  for (const q of STEPS.flatMap(s => s.qs)) {
+    const a = answers[q.id];
+    if (q.type === 'grid') { if (a) q.rows.forEach(([, entry], ri) => a[ri] && b.append(`entry.${entry}`, a[ri])); continue; }
+    if (a == null || a === '' || (Array.isArray(a) && !a.length)) continue;
+    const vals = Array.isArray(a) ? a : [String(a).trim()];
+    for (const v of vals) {
+      if (v === '__other__') {
+        b.append(`entry.${q.entry}`, '__other_option__');
+        b.append(`entry.${q.entry}.other_option_response`, document.querySelector(`[data-other="${q.id}"]`).value.trim());
+      } else b.append(`entry.${q.entry}`, v);
+    }
+  }
+  b.append('pageHistory', '0,1,2,3');
+  b.append('fvv', '1');
+  return b;
+}
+
+async function submit() {
+  const btn = $('#nextBtn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: buildBody() });
+    $('#survey').classList.add('hidden'); $('#progress').classList.add('hidden'); $('#intro').classList.add('hidden');
+    $('#done').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    btn.disabled = false; btn.textContent = 'Submit';
+    alert('Sorry, something went wrong. Please check your connection and try again.');
+  }
+}
+
+$('#nextBtn').addEventListener('click', () => {
+  if (!validateStep(step)) return;
+  if (step < STEPS.length - 1) show(step + 1); else submit();
+});
+$('#backBtn').addEventListener('click', () => show(step - 1));
+
+render();
+show(0);
+</script>
+</body>
+</html>

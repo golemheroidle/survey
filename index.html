@@ -80,17 +80,17 @@ textarea{min-height:110px;resize:vertical}
 .intro .intro-golem{flex:none;width:110px;margin-top:-4px;animation:bob 2.4s ease-in-out infinite}
 .intro .intro-text{flex:1;min-width:0}
 .reward{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 14px;border-radius:14px;
-  background:linear-gradient(135deg,#f6efff,#ece0ff);box-shadow:inset 0 0 0 2px #d8c4ff}
-.reward img{width:40px;height:40px;flex:none;filter:drop-shadow(0 2px 3px rgba(90,40,170,.3))}
-.reward b{display:block;color:#6a34c2;font-weight:900}
-.reward span{font-size:14px;color:#6e5a8e}
+  background:linear-gradient(135deg,#fff1ee,#ffe1dc);box-shadow:inset 0 0 0 2px #ffc3b8}
+.reward img{width:64px;height:auto;flex:none;margin:-8px 0;filter:drop-shadow(0 2px 3px rgba(150,30,20,.3))}
+.reward b{display:block;color:#b8261c;font-weight:900}
+.reward span{font-size:14px;color:#8a4a40}
 
 .progress{position:relative;display:block;margin-top:22px;padding:30px 52px 0 6px}
 .track{position:relative;height:14px;background:#fff;border-radius:99px;box-shadow:inset 0 0 0 2px var(--line)}
 .track i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#f7b26a,var(--brand));border-radius:99px;transition:width .5s cubic-bezier(.4,1.4,.6,1)}
 .track .dot{position:absolute;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--line);transition:background .3s}
 .track .dot.on{background:#fff}
-.walker{position:absolute;top:-8px;width:46px;margin-left:-23px;transition:left .5s cubic-bezier(.4,1.4,.6,1);transform:scaleX(-1);pointer-events:none}
+.walker{position:absolute;top:-8px;width:46px;margin-left:-23px;transition:left .5s cubic-bezier(.4,1.4,.6,1);pointer-events:none}
 .walker img{width:100%;display:block;animation:hop .6s ease-in-out infinite alternate}
 .goal{position:absolute;right:0;top:12px;width:46px;filter:drop-shadow(0 2px 3px rgba(120,60,10,.3));animation:bob 2s ease-in-out infinite}
 .step-label{display:block;text-align:right;margin:6px 52px 0 0;font-size:13px}
@@ -123,8 +123,9 @@ section[data-step]{animation:slidein .35s ease-out}
 .chest-stage .prize{opacity:0;transform:scale(.4);transition:opacity .4s,transform .5s cubic-bezier(.3,1.8,.5,1)}
 .chest-stage.open .prize{opacity:1;transform:none}
 .prize{display:grid;place-items:center}
-.prize .golem{width:170px;height:auto;position:static}
-.prize .ruby{position:absolute;width:56px;height:56px;top:14px;right:14px;animation:bob 1.8s ease-in-out infinite;filter:drop-shadow(0 3px 4px rgba(180,30,70,.35))}
+.prize .becky{width:220px;height:auto;filter:drop-shadow(0 4px 6px rgba(120,40,20,.3))}
+.prize .golem{position:absolute;width:84px;height:auto;left:-34px;bottom:-6px;animation:bob 1.8s ease-in-out infinite}
+.got{margin:6px 0 0;font-weight:900;color:#b8261c}
 .done .after{opacity:0;transition:opacity .5s .2s}
 .done.open .after{opacity:1}
 .confetti{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;opacity:.9;animation:fall linear forwards;pointer-events:none}
@@ -160,8 +161,8 @@ section[data-step]{animation:slidein .35s ease-out}
         <li>One reward per account</li>
       </ul>
       <div class="reward">
-        <img src="img/ruby.png" alt="">
-        <div><b id="rewardName">Ruby reward</b><span>Sent to your in-game mailbox when you finish</span></div>
+        <img src="img/becky_icon.webp" alt="Becky costume">
+        <div><b id="rewardName">Reward: Becky Costume</b><span>A hockey bear costume, sent to your in-game mailbox when you finish</span></div>
       </div>
     </div>
   </div>
@@ -184,9 +185,10 @@ section[data-step]{animation:slidein .35s ease-out}
   <div id="done" class="card done hidden">
     <div class="chest-stage" id="chestStage">
       <img id="chestAnim" alt="">
-      <div class="prize"><img class="golem" src="img/golem_teary.webp" alt=""><img class="ruby" src="img/ruby.png" alt=""></div>
+      <div class="prize"><img class="becky" src="img/becky.webp" alt="Becky costume"><img class="golem" src="img/golem_teary.webp" alt=""></div>
     </div>
     <div class="after">
+      <p class="got">Becky Costume</p>
       <h2>Thank you!</h2>
       <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
     </div>

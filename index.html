@@ -123,7 +123,11 @@ section[data-step]{animation:slidein .35s ease-out}
 .chest-stage.open .prize{opacity:1;transform:none}
 .prize{display:grid;place-items:center}
 .prize .becky{width:220px;height:auto;filter:drop-shadow(0 4px 6px rgba(120,40,20,.3))}
-.more{margin-top:18px;padding:12px 16px;border-radius:14px;background:var(--soft);font-size:14px;color:var(--ink)}
+.more{margin-top:18px;padding:14px 16px;border-radius:14px;background:var(--soft);font-size:14px;color:var(--ink)}
+.more p{margin:0}
+.badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:12px}
+.badges img{display:block;height:44px;width:auto;transition:transform .12s}
+.badges a:hover img{transform:translateY(-2px)}
 .got{margin:6px 0 0;font-weight:900;color:#b8261c}
 .done .after{opacity:0;transition:opacity .5s .2s}
 .done.open .after{opacity:1}
@@ -189,7 +193,14 @@ section[data-step]{animation:slidein .35s ease-out}
       <p class="got">Becky Costume</p>
       <h2>Thank you!</h2>
       <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
-      <p class="more">Have more ideas or feedback? We'd love to hear from you in a review on Google Play or the App Store.</p>
+      <div class="more">
+        <p>Have more ideas or feedback? We'd love to hear from you in a review on Google Play or the App Store.</p>
+        <!-- 商店網址還沒定，先連 Google；上架後換成正式連結 -->
+        <div class="badges">
+          <a href="https://www.google.com/" target="_blank" rel="noopener"><img src="img/badge_appstore.png" alt="Download on the App Store"></a>
+          <a href="https://www.google.com/" target="_blank" rel="noopener"><img src="img/badge_googleplay.png" alt="Get it on Google Play"></a>
+        </div>
+      </div>
     </div>
   </div>
 

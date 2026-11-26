@@ -68,12 +68,82 @@ textarea{min-height:110px;resize:vertical}
 .btn-primary:hover{background:#f07a34}
 .btn-ghost{background:#fff;color:var(--brand-dark);box-shadow:inset 0 0 0 2px var(--line)}
 .btn[disabled]{opacity:.6;cursor:default}
-.hidden{display:none}
+.hidden{display:none!important}
 .done{text-align:center;padding:36px 22px}
 .done .big{font-size:56px;line-height:1}
 .done h2{margin:12px 0 8px;font-size:26px;font-weight:900}
 .done p{color:var(--muted);margin:0}
 .foot{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+
+/* ---- 2026-11-26 改版：角色、進度條、獎勵、選項排版 ---- */
+.intro{display:flex;gap:16px;align-items:flex-start}
+.intro .intro-golem{flex:none;width:110px;margin-top:-4px;animation:bob 2.4s ease-in-out infinite}
+.intro .intro-text{flex:1;min-width:0}
+.reward{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 14px;border-radius:14px;
+  background:linear-gradient(135deg,#f6efff,#ece0ff);box-shadow:inset 0 0 0 2px #d8c4ff}
+.reward img{width:40px;height:40px;flex:none;filter:drop-shadow(0 2px 3px rgba(90,40,170,.3))}
+.reward b{display:block;color:#6a34c2;font-weight:900}
+.reward span{font-size:14px;color:#6e5a8e}
+
+.progress{position:relative;display:block;margin-top:22px;padding:30px 52px 0 6px}
+.track{position:relative;height:14px;background:#fff;border-radius:99px;box-shadow:inset 0 0 0 2px var(--line)}
+.track i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#f7b26a,var(--brand));border-radius:99px;transition:width .5s cubic-bezier(.4,1.4,.6,1)}
+.track .dot{position:absolute;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--line);transition:background .3s}
+.track .dot.on{background:#fff}
+.walker{position:absolute;top:-8px;width:46px;margin-left:-23px;transition:left .5s cubic-bezier(.4,1.4,.6,1);transform:scaleX(-1);pointer-events:none}
+.walker img{width:100%;display:block;animation:hop .6s ease-in-out infinite alternate}
+.goal{position:absolute;right:0;top:12px;width:46px;filter:drop-shadow(0 2px 3px rgba(120,60,10,.3));animation:bob 2s ease-in-out infinite}
+.step-label{display:block;text-align:right;margin:6px 52px 0 0;font-size:13px}
+
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.sec-head img{flex:none;width:78px;transition:transform .2s}
+.sec-head img.shake{animation:shake .45s}
+.bubble{position:relative;flex:1;background:var(--soft);border-radius:16px;padding:10px 14px}
+.bubble::before{content:'';position:absolute;left:-8px;top:50%;margin-top:-8px;border:8px solid transparent;border-left:0;border-right-color:var(--soft)}
+.bubble .sec-title{font-size:20px}
+.bubble .sec-desc{margin:2px 0 0;font-size:14px}
+section[data-step]{animation:slidein .35s ease-out}
+.q{padding:14px;margin:12px -14px 0;border-radius:14px;transition:box-shadow .2s}
+
+.opts.pills{display:flex;flex-wrap:wrap;gap:8px}
+.opts.pills .opt{padding:9px 16px;border-radius:99px}
+.opts.pills .opt .mark{display:none}
+.opts.pills .opt.on{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:800}
+.opt .ot{display:flex;flex-direction:column;line-height:1.3}
+.opt .ot b{font-weight:800}
+.opt .ot small{color:var(--muted);font-size:13px;margin-top:2px}
+@media (min-width:560px){ .opts.two{grid-template-columns:1fr 1fr} }
+.opt.on .ot small{color:#9a5a2c}
+.opt.pop{animation:pop .2s}
+
+.done{position:relative;overflow:hidden}
+.chest-stage{position:relative;width:240px;height:240px;margin:-10px auto 0}
+.chest-stage #chestAnim{position:absolute;inset:0;width:100%;height:100%}
+.chest-stage .prize{position:absolute;inset:0}
+.chest-stage .prize{opacity:0;transform:scale(.4);transition:opacity .4s,transform .5s cubic-bezier(.3,1.8,.5,1)}
+.chest-stage.open .prize{opacity:1;transform:none}
+.prize{display:grid;place-items:center}
+.prize .golem{width:170px;height:auto;position:static}
+.prize .ruby{position:absolute;width:56px;height:56px;top:14px;right:14px;animation:bob 1.8s ease-in-out infinite;filter:drop-shadow(0 3px 4px rgba(180,30,70,.35))}
+.done .after{opacity:0;transition:opacity .5s .2s}
+.done.open .after{opacity:1}
+.confetti{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;opacity:.9;animation:fall linear forwards;pointer-events:none}
+
+@keyframes bob{50%{transform:translateY(-6px)}}
+@keyframes hop{to{transform:translateY(-4px) rotate(4deg)}}
+@keyframes shake{20%,60%{transform:translateX(-6px) rotate(-4deg)}40%,80%{transform:translateX(6px) rotate(4deg)}}
+@keyframes slidein{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes pop{50%{transform:scale(.96)}}
+@keyframes fall{to{transform:translateY(520px) rotate(540deg);opacity:0}}
+
+@media (max-width:480px){
+  .intro{display:block}
+  .intro .intro-golem{float:right;width:76px;margin:-6px -4px 0 6px}
+  .intro h1{font-size:22px}
+  .sec-head img{width:62px}
+  .bubble .sec-title{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -81,16 +151,27 @@ textarea{min-height:110px;resize:vertical}
   <img class="banner" src="banner.jpg" alt="Idle Golem Player Survey">
 
   <div id="intro" class="card intro">
-    <h1>Idle Golem – Player Survey</h1>
-    <p>Thanks for playing Idle Golem! We'd love to hear about your adventure so far.</p>
-    <ul>
-      <li>Takes about 3 minutes</li>
-      <li>Complete the survey to receive a thank-you reward in your in-game mailbox</li>
-      <li>One reward per account. Delivery may take a little time.</li>
-    </ul>
+    <img class="intro-golem" src="img/golem_sparkle.webp" alt="">
+    <div class="intro-text">
+      <h1>Idle Golem – Player Survey</h1>
+      <p>Thanks for playing Idle Golem! We'd love to hear about your adventure so far.</p>
+      <ul>
+        <li>Takes about 3 minutes</li>
+        <li>One reward per account</li>
+      </ul>
+      <div class="reward">
+        <img src="img/ruby.png" alt="">
+        <div><b id="rewardName">Ruby reward</b><span>Sent to your in-game mailbox when you finish</span></div>
+      </div>
+    </div>
   </div>
 
-  <div id="progress" class="progress"><div class="bar"><i id="barFill"></i></div><span class="step-label" id="stepLabel">Step 1 of 4</span></div>
+  <div id="progress" class="progress">
+    <div class="track" id="track"><i id="barFill"></i></div>
+    <div class="walker" id="walker"><img src="img/golem_normal.webp" alt=""></div>
+    <img class="goal" src="img/chest_icon.webp" alt="">
+    <span class="step-label" id="stepLabel">Step 1 of 5</span>
+  </div>
 
   <form id="survey" class="card" novalidate>
     <div id="steps"></div>
@@ -101,9 +182,14 @@ textarea{min-height:110px;resize:vertical}
   </form>
 
   <div id="done" class="card done hidden">
-    <div class="big">🎉</div>
-    <h2>Thank you!</h2>
-    <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
+    <div class="chest-stage" id="chestStage">
+      <img id="chestAnim" alt="">
+      <div class="prize"><img class="golem" src="img/golem_teary.webp" alt=""><img class="ruby" src="img/ruby.png" alt=""></div>
+    </div>
+    <div class="after">
+      <h2>Thank you!</h2>
+      <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
+    </div>
   </div>
 
   <div class="foot">© Idle Golem</div>
@@ -113,11 +199,11 @@ textarea{min-height:110px;resize:vertical}
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfy7gClBM8XycXqdIn4diAMMvOehw6H3KSeEIE5zanWBwz2Fw/formResponse';
 
 const STEPS = [
-  { title: 'Your Account', desc: 'Let us know where to send your reward.', qs: [
+  { title: 'Your Account', desc: 'Let us know where to send your reward.', face: 'normal', qs: [
     { id: 'uid', entry: 1861924057, type: 'uid', req: true, title: 'Your Account ID',
       desc: "Open your Profile in the game, copy your Account ID and paste it here. We'll send your reward to this account." }
   ]},
-  { title: 'About You', desc: 'A few quick questions so we can get to know our players.', qs: [
+  { title: 'About You', desc: 'A few quick questions so we can get to know our players.', face: 'sparkle', qs: [
     { id: 'gender', entry: 1244060139, type: 'radio', req: true, title: 'What is your gender?',
       opts: ['Male','Female','Non-binary','Prefer not to say'] },
     { id: 'age', entry: 359604073, type: 'radio', req: true, title: 'How old are you?',
@@ -125,14 +211,14 @@ const STEPS = [
     { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Idle Golem?',
       opts: ['Browsing Google Play / App Store','Ad on Facebook or Instagram','Ad on YouTube','Ad on TikTok','A friend or family member'], other: true }
   ]},
-  { title: 'Your Gaming Habits', desc: 'Tell us how you usually play games.', qs: [
+  { title: 'Your Gaming Habits', desc: 'Tell us how you usually play games.', face: 'smile', qs: [
     { id: 'freq', entry: 1106045688, type: 'radio', req: true, title: 'In the past 6 months, how often have you played games?',
       opts: ['Less than 1 day a week','1–2 days a week','3–4 days a week','5–6 days a week','Every day',"I haven't played games in the past 6 months","I don't play games"] },
     { id: 'time', entry: 743127973, type: 'radio', req: true, title: 'In the past 6 months, how much time have you spent on games on an average day?',
       opts: ['Less than 30 minutes','30 minutes to under 1 hour','1 to under 2 hours','2 to under 3 hours','3 to under 4 hours','4 hours or more'] },
     { id: 'spend', entry: 988577805, type: 'radio', req: true, title: 'In the past 6 months, how much have you spent on in-game purchases?', desc: 'In Canadian dollars (CAD).',
       opts: ['Nothing, I play for free','Less than $5','$5 to under $20','$20 to under $50','$50 to under $100','$100 to under $300','$300 or more'] },
-    { id: 'motive', entry: 1423224899, type: 'checkbox', req: true, title: 'When you try a new game, what matters most to you?', desc: 'Choose all that apply.',
+    { id: 'motive', entry: 1423224899, type: 'checkbox', req: true, split: true, title: 'When you try a new game, what matters most to you?', desc: 'Choose all that apply.',
       opts: ['Emotion: Feeling real emotional connections, like love or friendship',
         'Relaxation: Easy, simple gameplay that helps me unwind',
         'Visuals: Beautiful graphics or a unique art style',
@@ -152,7 +238,7 @@ const STEPS = [
         'Competition: Competing with and beating other players, like rankings and tiers'] },
     { id: 'games', entry: 1464727492, type: 'text', title: 'What other mobile games have you played recently?', desc: 'Optional' }
   ]},
-  { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', qs: [
+  { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', face: 'wow', qs: [
     { id: 'enjoy', entry: 319544534, type: 'scale', req: true, title: 'Overall, how much are you enjoying Idle Golem?',
       low: 1, high: 5, lowLabel: 'Not at all', highLabel: 'Love it!' },
     { id: 'like', entry: 542537591, type: 'checkbox', req: true, title: 'Which parts of the game do you enjoy the most?', desc: 'Choose all that apply.',
@@ -163,7 +249,7 @@ const STEPS = [
       cols: ['Poor','Okay','Good','Great'],
       rows: [['Art and characters',1819999126],['Music and sound',960467185],['Game pace',1953964325],['Difficulty',514695214],['Rewards from events and quests',706709696]] }
   ]},
-  { title: 'Looking Ahead', desc: 'Almost done! Help us shape what comes next.', qs: [
+  { title: 'Looking Ahead', desc: 'Almost done! Help us shape what comes next.', face: 'legend', qs: [
     { id: 'nps', entry: 1728677794, type: 'scale', req: true, title: 'How likely are you to recommend Idle Golem to a friend?',
       low: 0, high: 10, lowLabel: 'Not likely', highLabel: 'Very likely' },
     { id: 'more', entry: 349434999, type: 'checkbox', req: true, title: 'What would you like to see more of?', desc: 'Choose all that apply.',
@@ -188,9 +274,15 @@ function renderQ(q) {
     body = `<textarea data-q="${q.id}" placeholder="Your answer"></textarea>`;
   } else if (q.type === 'radio' || q.type === 'checkbox') {
     const cls = q.type === 'checkbox' ? 'opt cb' : 'opt';
-    const items = q.opts.map(o => `<label class="${cls}" data-q="${q.id}" data-v="${esc(o)}"><span class="mark"></span><span>${esc(o)}</span></label>`);
+    // 選項都很短 → 膠囊按鈕橫排；複選且選項多 → 寬螢幕兩欄
+    const layout = q.opts.every(o => o.length <= 18) && !q.other ? 'pills' : (q.type === 'checkbox' && q.opts.length >= 6 ? 'two' : '');
+    const label = o => {
+      const i = q.split ? o.indexOf(': ') : -1;
+      return i > 0 ? `<span class="ot"><b>${esc(o.slice(0, i))}</b><small>${esc(o.slice(i + 2))}</small></span>` : `<span>${esc(o)}</span>`;
+    };
+    const items = q.opts.map(o => `<label class="${cls}" data-q="${q.id}" data-v="${esc(o)}"><span class="mark"></span>${label(o)}</label>`);
     if (q.other) items.push(`<label class="${cls}" data-q="${q.id}" data-v="__other__"><span class="mark"></span><span>Other</span></label>`);
-    body = `<div class="opts">${items.join('')}</div>` + (q.other ? `<input type="text" class="other-input" data-other="${q.id}" placeholder="Please specify">` : '');
+    body = `<div class="opts ${layout}">${items.join('')}</div>` + (q.other ? `<input type="text" class="other-input" data-other="${q.id}" placeholder="Please specify">` : '');
   } else if (q.type === 'scale') {
     const btns = []; for (let i = q.low; i <= q.high; i++) btns.push(`<button type="button" data-q="${q.id}" data-v="${i}">${i}</button>`);
     body = `<div class="scale">${btns.join('')}</div><div class="scale-labels"><span>${esc(q.lowLabel)}</span><span>${esc(q.highLabel)}</span></div>`;
@@ -204,7 +296,10 @@ function renderQ(q) {
 
 function render() {
   $('#steps').innerHTML = STEPS.map((s, i) => `<section data-step="${i}" class="${i ? 'hidden' : ''}">
-    <h2 class="sec-title">${esc(s.title)}</h2><p class="sec-desc">${esc(s.desc)}</p>${s.qs.map(renderQ).join('')}</section>`).join('');
+    <div class="sec-head"><img src="img/golem_${s.face}.webp" alt="" data-face="${s.face}">
+    <div class="bubble"><h2 class="sec-title">${esc(s.title)}</h2><p class="sec-desc">${esc(s.desc)}</p></div></div>
+    ${s.qs.map(renderQ).join('')}</section>`).join('');
+  $('#track').insertAdjacentHTML('beforeend', STEPS.map((_, i) => `<span class="dot" style="left:${(i + 1) / STEPS.length * 100}%"></span>`).join(''));
 
   document.querySelectorAll('label.opt').forEach(el => el.addEventListener('click', e => {
     e.preventDefault();
@@ -218,6 +313,7 @@ function render() {
       answers[q.id] = [...set];
       el.classList.toggle('on', set.has(v));
     }
+    el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
     const sel = q.type === 'radio' ? answers[q.id] === '__other__' : (answers[q.id] || []).includes('__other__');
     const oi = document.querySelector(`[data-other="${q.id}"]`);
     if (oi) { oi.classList.toggle('show', sel); if (sel) oi.focus(); }
@@ -272,7 +368,13 @@ function validateStep(i) {
     }
     if (msg) { setErr(q.id, msg); first = first || q.id; }
   }
-  if (first) $('#q-' + first).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const face = document.querySelector(`section[data-step="${i}"] .sec-head img`);
+  if (first) {
+    $('#q-' + first).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // 魔像換成苦惱臉並搖一下
+    face.src = 'img/golem_think.webp';
+    face.classList.remove('shake'); void face.offsetWidth; face.classList.add('shake');
+  } else face.src = `img/golem_${face.dataset.face}.webp`;
   return !first;
 }
 
@@ -281,8 +383,12 @@ function show(i) {
   document.querySelectorAll('section[data-step]').forEach(s => s.classList.toggle('hidden', +s.dataset.step !== i));
   $('#backBtn').classList.toggle('hidden', i === 0);
   $('#nextBtn').textContent = i === STEPS.length - 1 ? 'Submit' : 'Next';
-  $('#barFill').style.width = ((i + 1) / STEPS.length * 100) + '%';
+  const pct = i / STEPS.length * 100;  // 走到「這一頁的起點」，填完最後一頁才到寶箱
+  $('#barFill').style.width = pct + '%';
+  $('#walker').style.left = `calc(22px + (100% - 74px) * ${pct / 100})`;
+  document.querySelectorAll('#track .dot').forEach((d, k) => d.classList.toggle('on', k < i));
   $('#stepLabel').textContent = `Step ${i + 1} of ${STEPS.length}`;
+  if (i === STEPS.length - 1) new Image().src = 'img/chest.webp'; // 預先載入開寶箱動畫
   $('#intro').classList.toggle('hidden', i !== 0);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -314,10 +420,31 @@ async function submit() {
     $('#survey').classList.add('hidden'); $('#progress').classList.add('hidden'); $('#intro').classList.add('hidden');
     $('#done').classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    playDone();
   } catch (e) {
     btn.disabled = false; btn.textContent = 'Submit';
     alert('Sorry, something went wrong. Please check your connection and try again.');
   }
+}
+
+// 感謝頁：寶箱動畫（約 3.2 秒）爆光後，換成魔像＋紅寶石，再撒彩帶
+function playDone() {
+  const anim = $('#chestAnim'), done = $('#done');
+  anim.src = 'img/chest.webp?' + Date.now(); // 加參數讓動畫從頭播
+  setTimeout(() => {
+    $('#chestStage').classList.add('open'); done.classList.add('open');
+    anim.style.visibility = 'hidden';
+    const colors = ['#e86e28', '#f7b26a', '#ff5d8f', '#5ec8ff', '#ffd84a'];
+    for (let k = 0; k < 40; k++) {
+      const c = document.createElement('i');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + '%';
+      c.style.background = colors[k % colors.length];
+      c.style.animationDuration = (1.6 + Math.random() * 1.4) + 's';
+      c.style.animationDelay = Math.random() * .4 + 's';
+      done.appendChild(c);
+    }
+  }, 2300);
 }
 
 $('#nextBtn').addEventListener('click', () => {

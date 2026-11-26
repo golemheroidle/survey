@@ -118,10 +118,38 @@ const STEPS = [
       desc: "Open your Profile in the game, copy your Account ID and paste it here. We'll send your reward to this account." }
   ]},
   { title: 'About You', desc: 'A few quick questions so we can get to know our players.', qs: [
+    { id: 'gender', entry: 1244060139, type: 'radio', req: true, title: 'What is your gender?',
+      opts: ['Male','Female','Non-binary','Prefer not to say'] },
+    { id: 'age', entry: 359604073, type: 'radio', req: true, title: 'How old are you?',
+      opts: ['Under 18','18–24','25–34','35–44','45–54','55 or older'] },
     { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Idle Golem?',
-      opts: ['Browsing Google Play / App Store','Ad on Facebook or Instagram','Ad on YouTube','Ad on TikTok','A friend or family member'], other: true },
-    { id: 'freq', entry: 1106045688, type: 'radio', req: true, title: 'How often do you play mobile games?',
-      opts: ['Every day','A few times a week','Once a week or less'] },
+      opts: ['Browsing Google Play / App Store','Ad on Facebook or Instagram','Ad on YouTube','Ad on TikTok','A friend or family member'], other: true }
+  ]},
+  { title: 'Your Gaming Habits', desc: 'Tell us how you usually play games.', qs: [
+    { id: 'freq', entry: 1106045688, type: 'radio', req: true, title: 'In the past 6 months, how often have you played games?',
+      opts: ['Less than 1 day a week','1–2 days a week','3–4 days a week','5–6 days a week','Every day',"I haven't played games in the past 6 months","I don't play games"] },
+    { id: 'time', entry: 743127973, type: 'radio', req: true, title: 'In the past 6 months, how much time have you spent on games on an average day?',
+      opts: ['Less than 30 minutes','30 minutes to under 1 hour','1 to under 2 hours','2 to under 3 hours','3 to under 4 hours','4 hours or more'] },
+    { id: 'spend', entry: 988577805, type: 'radio', req: true, title: 'In the past 6 months, how much have you spent on in-game purchases?', desc: 'In Canadian dollars (CAD).',
+      opts: ['Nothing, I play for free','Less than $5','$5 to under $20','$20 to under $50','$50 to under $100','$100 to under $300','$300 or more'] },
+    { id: 'motive', entry: 1423224899, type: 'checkbox', req: true, title: 'When you try a new game, what matters most to you?', desc: 'Choose all that apply.',
+      opts: ['Emotion: Feeling real emotional connections, like love or friendship',
+        'Relaxation: Easy, simple gameplay that helps me unwind',
+        'Visuals: Beautiful graphics or a unique art style',
+        'Social: Meeting new people or playing with others',
+        'Challenge: Hard content that takes study and practice to beat',
+        'Skill: Gameplay that tests precision, reflexes or timing',
+        'Puzzles: The fun of solving puzzles and problems',
+        'Progression: Always getting stronger, like leveling up and raising combat power',
+        'Collecting: Collecting characters, skins, items and more',
+        'Characters: Characters with great personalities, backstories and voice acting',
+        'Freedom: Lots of freedom and more ways to grow and move the story forward',
+        'Strategy: Thinking and planning to find the best approach',
+        'Exploration: Discovering hidden content, random events and Easter eggs',
+        'Immersion: Getting lost in the game world and forgetting about real life',
+        'Customization: Designing characters or scenes my way, like changing looks and skins',
+        'Story: A rich world with a great main story and side stories',
+        'Competition: Competing with and beating other players, like rankings and tiers'] },
     { id: 'games', entry: 1464727492, type: 'text', title: 'What other mobile games have you played recently?', desc: 'Optional' }
   ]},
   { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', qs: [
@@ -273,7 +301,7 @@ function buildBody() {
       } else b.append(`entry.${q.entry}`, v);
     }
   }
-  b.append('pageHistory', '0,1,2,3');
+  b.append('pageHistory', STEPS.map((_, i) => i).join(','));
   b.append('fvv', '1');
   return b;
 }

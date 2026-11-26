@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Idle Golem – Player Survey</title>
+<title>Golem Hero – Player Survey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -76,31 +76,30 @@ textarea{min-height:110px;resize:vertical}
 .foot{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
 
 /* ---- 2026-11-26 改版：角色、進度條、獎勵、選項排版 ---- */
-.intro{display:flex;gap:16px;align-items:flex-start}
-.intro .intro-golem{flex:none;width:110px;margin-top:-4px;animation:bob 2.4s ease-in-out infinite}
+.intro{display:flex;gap:8px;align-items:center}
 .intro .intro-text{flex:1;min-width:0}
-.reward{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 14px;border-radius:14px;
-  background:linear-gradient(135deg,#fff1ee,#ffe1dc);box-shadow:inset 0 0 0 2px #ffc3b8}
-.reward img{width:64px;height:auto;flex:none;margin:-8px 0;filter:drop-shadow(0 2px 3px rgba(150,30,20,.3))}
-.reward b{display:block;color:#b8261c;font-weight:900}
-.reward span{font-size:14px;color:#8a4a40}
+.intro .intro-becky{flex:none;width:190px;margin:-6px -6px -6px 0;filter:drop-shadow(0 6px 8px rgba(120,40,20,.25));animation:bob 2.6s ease-in-out infinite}
+.reward{margin-top:14px;padding:12px 16px;border-radius:16px;background:linear-gradient(135deg,#fff8e6,#ffefcc)}
+.reward .chip{display:inline-block;margin-bottom:4px;padding:2px 10px;border-radius:99px;background:var(--brand);color:#fff;font-size:12px;font-weight:800;letter-spacing:.3px}
+.reward b{display:block;color:var(--ink);font-size:18px;font-weight:900}
+.reward > span:last-child{font-size:14px;color:var(--muted)}
 
-.progress{position:relative;display:block;margin-top:22px;padding:30px 52px 0 6px}
+.progress{position:relative;display:block;margin-top:16px;padding:52px 54px 0 18px}
 .track{position:relative;height:14px;background:#fff;border-radius:99px;box-shadow:inset 0 0 0 2px var(--line)}
 .track i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#f7b26a,var(--brand));border-radius:99px;transition:width .5s cubic-bezier(.4,1.4,.6,1)}
-.track .dot{position:absolute;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--line);transition:background .3s}
-.track .dot.on{background:#fff}
-.walker{position:absolute;top:-8px;width:46px;margin-left:-23px;transition:left .5s cubic-bezier(.4,1.4,.6,1);pointer-events:none}
-.walker img{width:100%;display:block;animation:hop .6s ease-in-out infinite alternate}
-.goal{position:absolute;right:0;top:12px;width:46px;filter:drop-shadow(0 2px 3px rgba(120,60,10,.3));animation:bob 2s ease-in-out infinite}
-.step-label{display:block;text-align:right;margin:6px 52px 0 0;font-size:13px}
+.track .dot{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--line);transition:background .3s,box-shadow .3s}
+.track .dot.past{background:var(--brand-dark)}
+.track .dot.now{background:var(--brand-dark);box-shadow:0 0 0 3px #fff}
+/* 小石像、寶箱都放在 track 裡，位置以 track 寬度的百分比計算，和進度一致 */
+.walker{position:absolute;left:0;bottom:-4px;z-index:2;width:60px;margin-left:-30px;transition:left 1.2s linear;pointer-events:none}
+.walker img{width:100%;display:block}
+.walker.back img{transform:scaleX(-1)}
+.goal{position:absolute;left:100%;top:50%;width:46px;margin:-30px 0 0 2px;filter:drop-shadow(0 2px 3px rgba(120,60,10,.3));animation:bob 2s ease-in-out infinite}
+.step-label{display:block;text-align:left;margin:6px 0 0 2px;font-size:13px}
 
-.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
-.sec-head img{flex:none;width:78px;transition:transform .2s}
-.sec-head img.shake{animation:shake .45s}
-.bubble{position:relative;flex:1;background:var(--soft);border-radius:16px;padding:10px 14px}
-.bubble::before{content:'';position:absolute;left:-8px;top:50%;margin-top:-8px;border:8px solid transparent;border-left:0;border-right-color:var(--soft)}
-.bubble .sec-title{font-size:20px}
+#survey{position:relative}
+.sec-head{padding:2px 0 12px;margin-bottom:4px;border-bottom:2px dashed var(--line)}
+.bubble .sec-title{font-size:22px}
 .bubble .sec-desc{margin:2px 0 0;font-size:14px}
 section[data-step]{animation:slidein .35s ease-out}
 .q{padding:14px;margin:12px -14px 0;border-radius:14px;transition:box-shadow .2s}
@@ -124,7 +123,7 @@ section[data-step]{animation:slidein .35s ease-out}
 .chest-stage.open .prize{opacity:1;transform:none}
 .prize{display:grid;place-items:center}
 .prize .becky{width:220px;height:auto;filter:drop-shadow(0 4px 6px rgba(120,40,20,.3))}
-.prize .golem{position:absolute;width:84px;height:auto;left:-34px;bottom:-6px;animation:bob 1.8s ease-in-out infinite}
+.more{margin-top:18px;padding:12px 16px;border-radius:14px;background:var(--soft);font-size:14px;color:var(--ink)}
 .got{margin:6px 0 0;font-weight:900;color:#b8261c}
 .done .after{opacity:0;transition:opacity .5s .2s}
 .done.open .after{opacity:1}
@@ -132,45 +131,44 @@ section[data-step]{animation:slidein .35s ease-out}
 
 @keyframes bob{50%{transform:translateY(-6px)}}
 @keyframes hop{to{transform:translateY(-4px) rotate(4deg)}}
-@keyframes shake{20%,60%{transform:translateX(-6px) rotate(-4deg)}40%,80%{transform:translateX(6px) rotate(4deg)}}
 @keyframes slidein{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
 @keyframes pop{50%{transform:scale(.96)}}
 @keyframes fall{to{transform:translateY(520px) rotate(540deg);opacity:0}}
 
 @media (max-width:480px){
-  .intro{display:block}
-  .intro .intro-golem{float:right;width:76px;margin:-6px -4px 0 6px}
-  .intro h1{font-size:22px}
-  .sec-head img{width:62px}
-  .bubble .sec-title{font-size:18px}
+  .intro{display:block;position:relative}
+  .intro .intro-becky{position:absolute;top:-26px;right:-4px;width:104px;margin:0}
+  .intro h1{font-size:22px;padding-right:92px}
+  .bubble .sec-title{font-size:19px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <img class="banner" src="banner.jpg" alt="Idle Golem Player Survey">
+  <img class="banner" src="banner.jpg" alt="Golem Hero Player Survey">
 
   <div id="intro" class="card intro">
-    <img class="intro-golem" src="img/golem_sparkle.webp" alt="">
     <div class="intro-text">
-      <h1>Idle Golem – Player Survey</h1>
-      <p>Thanks for playing Idle Golem! We'd love to hear about your adventure so far.</p>
+      <h1>Golem Hero – Player Survey</h1>
+      <p>Thanks for playing Golem Hero! We'd love to hear about your adventure so far.</p>
       <ul>
         <li>Takes about 3 minutes</li>
         <li>One reward per account</li>
       </ul>
       <div class="reward">
-        <img src="img/becky_icon.webp" alt="Becky costume">
-        <div><b id="rewardName">Reward: Becky Costume</b><span>A hockey bear costume, sent to your in-game mailbox when you finish</span></div>
+        <span class="chip">🎁 Survey Reward</span>
+        <b id="rewardName">Becky Costume</b><span>A hockey bear costume, sent to your in-game mailbox when you finish</span>
       </div>
     </div>
+    <img class="intro-becky" src="img/becky.webp" alt="Becky costume">
   </div>
 
   <div id="progress" class="progress">
-    <div class="track" id="track"><i id="barFill"></i></div>
-    <div class="walker" id="walker"><img src="img/golem_normal.webp" alt=""></div>
-    <img class="goal" src="img/chest_icon.webp" alt="">
+    <div class="track" id="track"><i id="barFill"></i>
+      <div class="walker" id="walker"><img id="walkerImg" src="img/golem_move.webp" alt=""></div>
+      <img class="goal" src="img/chest_icon.webp" alt="">
+    </div>
     <span class="step-label" id="stepLabel">Step 1 of 5</span>
   </div>
 
@@ -185,35 +183,36 @@ section[data-step]{animation:slidein .35s ease-out}
   <div id="done" class="card done hidden">
     <div class="chest-stage" id="chestStage">
       <img id="chestAnim" alt="">
-      <div class="prize"><img class="becky" src="img/becky.webp" alt="Becky costume"><img class="golem" src="img/golem_teary.webp" alt=""></div>
+      <div class="prize"><img class="becky" src="img/becky.webp" alt="Becky costume"></div>
     </div>
     <div class="after">
       <p class="got">Becky Costume</p>
       <h2>Thank you!</h2>
       <p>Thank you for completing the survey! Your reward will be sent to your in-game mailbox within 10 minutes.</p>
+      <p class="more">Have more ideas or feedback? We'd love to hear from you in a review on Google Play or the App Store.</p>
     </div>
   </div>
 
-  <div class="foot">© Idle Golem</div>
+  <div class="foot">© Golem Hero</div>
 </div>
 
 <script>
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfy7gClBM8XycXqdIn4diAMMvOehw6H3KSeEIE5zanWBwz2Fw/formResponse';
 
 const STEPS = [
-  { title: 'Your Account', desc: 'Let us know where to send your reward.', face: 'normal', qs: [
+  { title: 'Your Account', desc: 'Let us know where to send your reward.', qs: [
     { id: 'uid', entry: 1861924057, type: 'uid', req: true, title: 'Your Account ID',
       desc: "Open your Profile in the game, copy your Account ID and paste it here. We'll send your reward to this account." }
   ]},
-  { title: 'About You', desc: 'A few quick questions so we can get to know our players.', face: 'sparkle', qs: [
+  { title: 'About You', desc: 'A few quick questions so we can get to know our players.', qs: [
     { id: 'gender', entry: 1244060139, type: 'radio', req: true, title: 'What is your gender?',
       opts: ['Male','Female','Non-binary','Prefer not to say'] },
     { id: 'age', entry: 359604073, type: 'radio', req: true, title: 'How old are you?',
       opts: ['Under 18','18–24','25–34','35–44','45–54','55 or older'] },
-    { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Idle Golem?',
+    { id: 'hear', entry: 1040012056, type: 'radio', req: true, title: 'How did you first hear about Golem Hero?',
       opts: ['Browsing Google Play / App Store','Ad on Facebook or Instagram','Ad on YouTube','Ad on TikTok','A friend or family member'], other: true }
   ]},
-  { title: 'Your Gaming Habits', desc: 'Tell us how you usually play games.', face: 'smile', qs: [
+  { title: 'Your Gaming Habits', desc: 'Tell us how you usually play games.', qs: [
     { id: 'freq', entry: 1106045688, type: 'radio', req: true, title: 'In the past 6 months, how often have you played games?',
       opts: ['Less than 1 day a week','1–2 days a week','3–4 days a week','5–6 days a week','Every day',"I haven't played games in the past 6 months","I don't play games"] },
     { id: 'time', entry: 743127973, type: 'radio', req: true, title: 'In the past 6 months, how much time have you spent on games on an average day?',
@@ -240,8 +239,8 @@ const STEPS = [
         'Competition: Competing with and beating other players, like rankings and tiers'] },
     { id: 'games', entry: 1464727492, type: 'text', title: 'What other mobile games have you played recently?', desc: 'Optional' }
   ]},
-  { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', face: 'wow', qs: [
-    { id: 'enjoy', entry: 319544534, type: 'scale', req: true, title: 'Overall, how much are you enjoying Idle Golem?',
+  { title: 'Your Adventure So Far', desc: 'Tell us what you like and what we can do better.', qs: [
+    { id: 'enjoy', entry: 319544534, type: 'scale', req: true, title: 'Overall, how much are you enjoying Golem Hero?',
       low: 1, high: 5, lowLabel: 'Not at all', highLabel: 'Love it!' },
     { id: 'like', entry: 542537591, type: 'checkbox', req: true, title: 'Which parts of the game do you enjoy the most?', desc: 'Choose all that apply.',
       opts: ['Growing my golem and changing class','Skills','Pets','Runes','Costumes','Dungeons','Arena (PvP)','Village (Farm, Mine, Shrine, Research)','Events'], other: true },
@@ -251,8 +250,8 @@ const STEPS = [
       cols: ['Poor','Okay','Good','Great'],
       rows: [['Art and characters',1819999126],['Music and sound',960467185],['Game pace',1953964325],['Difficulty',514695214],['Rewards from events and quests',706709696]] }
   ]},
-  { title: 'Looking Ahead', desc: 'Almost done! Help us shape what comes next.', face: 'legend', qs: [
-    { id: 'nps', entry: 1728677794, type: 'scale', req: true, title: 'How likely are you to recommend Idle Golem to a friend?',
+  { title: 'Looking Ahead', desc: 'Almost done! Help us shape what comes next.', qs: [
+    { id: 'nps', entry: 1728677794, type: 'scale', req: true, title: 'How likely are you to recommend Golem Hero to a friend?',
       low: 0, high: 10, lowLabel: 'Not likely', highLabel: 'Very likely' },
     { id: 'more', entry: 349434999, type: 'checkbox', req: true, title: 'What would you like to see more of?', desc: 'Choose all that apply.',
       opts: ['New costumes','More events','New pets and skills','Co-op or guild content','More PvP','Story content'], other: true },
@@ -298,10 +297,11 @@ function renderQ(q) {
 
 function render() {
   $('#steps').innerHTML = STEPS.map((s, i) => `<section data-step="${i}" class="${i ? 'hidden' : ''}">
-    <div class="sec-head"><img src="img/golem_${s.face}.webp" alt="" data-face="${s.face}">
+    <div class="sec-head">
     <div class="bubble"><h2 class="sec-title">${esc(s.title)}</h2><p class="sec-desc">${esc(s.desc)}</p></div></div>
     ${s.qs.map(renderQ).join('')}</section>`).join('');
-  $('#track').insertAdjacentHTML('beforeend', STEPS.map((_, i) => `<span class="dot" style="left:${(i + 1) / STEPS.length * 100}%"></span>`).join(''));
+  // 每頁起點一個圓點（終點是寶箱）
+  $('#track').insertAdjacentHTML('beforeend', STEPS.map((_, i) => `<span class="dot" style="left:${i / STEPS.length * 100}%"></span>`).join(''));
 
   document.querySelectorAll('label.opt').forEach(el => el.addEventListener('click', e => {
     e.preventDefault();
@@ -370,14 +370,20 @@ function validateStep(i) {
     }
     if (msg) { setErr(q.id, msg); first = first || q.id; }
   }
-  const face = document.querySelector(`section[data-step="${i}"] .sec-head img`);
-  if (first) {
-    $('#q-' + first).scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // 魔像換成苦惱臉並搖一下
-    face.src = 'img/golem_think.webp';
-    face.classList.remove('shake'); void face.offsetWidth; face.classList.add('shake');
-  } else face.src = `img/golem_${face.dataset.face}.webp`;
+  if (first) $('#q-' + first).scrollIntoView({ behavior: 'smooth', block: 'center' });
   return !first;
+}
+
+// 進度條上的小石像：一直播移動動畫，換頁時走到新位置（往回走時轉身，走到後轉回來）
+let walkerPct = 0, walkTimer = null;
+function walkTo(pct) {
+  const w = $('#walker');
+  if (pct === walkerPct) return;
+  w.classList.toggle('back', pct < walkerPct);
+  w.style.left = pct + '%';
+  walkerPct = pct;
+  clearTimeout(walkTimer);
+  walkTimer = setTimeout(() => w.classList.remove('back'), 1200);
 }
 
 function show(i) {
@@ -387,8 +393,8 @@ function show(i) {
   $('#nextBtn').textContent = i === STEPS.length - 1 ? 'Submit' : 'Next';
   const pct = i / STEPS.length * 100;  // 走到「這一頁的起點」，填完最後一頁才到寶箱
   $('#barFill').style.width = pct + '%';
-  $('#walker').style.left = `calc(22px + (100% - 74px) * ${pct / 100})`;
-  document.querySelectorAll('#track .dot').forEach((d, k) => d.classList.toggle('on', k < i));
+  walkTo(pct);
+  document.querySelectorAll('#track .dot').forEach((d, k) => { d.classList.toggle('past', k < i); d.classList.toggle('now', k === i); /* 不能用 done（感謝頁卡片的 class） */ });
   $('#stepLabel').textContent = `Step ${i + 1} of ${STEPS.length}`;
   if (i === STEPS.length - 1) new Image().src = 'img/chest.webp'; // 預先載入開寶箱動畫
   $('#intro').classList.toggle('hidden', i !== 0);
